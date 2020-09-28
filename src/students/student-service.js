@@ -25,11 +25,6 @@ const StudentService = {
       .where({ id })
       .delete()
   },
-  // updateFolder(knex, id, newStudentFields) {
-  //   return knex('folders')
-  //     .where({ id })
-  //     .update(newStudentFields)
-  // },
 }
 
 module.exports = StudentService

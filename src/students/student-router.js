@@ -1,7 +1,7 @@
 const express = require('express');
 const StudentService = require('./student-service');
 const path = require('path');
-// const xss = require('xss');
+
 
 const studentRouter = express.Router();
 const jsonParser = express.json();
@@ -104,27 +104,5 @@ studentRouter
         })
         .catch(next);
     })
-//     .patch(jsonParser, (req, res, next) => {
-//         const {folder_name} = req.body;
-//         const folderToUpdate = {folder_name};
-
-//         const numberOfValues = Object.values(folderToUpdate).filter(Boolean).length;
-
-//         if (numberOfValues === 0) {
-//             return res.status(400).json({
-//                 error: {message: `Request body must contain a 'name.'`}
-//             });
-//         }
-
-//         StudentService.updateFolder(
-//             req.app.patch.get('db'),
-//             req.params.student_id,
-//             folderToUpdate
-//         )
-//             .then(numRowsAffected => {
-//                 res.status(204).end();
-//             })
-//             .catch(next);
-//     });
 
 module.exports = studentRouter;
