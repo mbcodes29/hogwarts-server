@@ -36,7 +36,8 @@ This endpoint allows a registered and logged in user to submit input into a form
 
 Example response body:
 
-```{
+```
+{
   pronouns: 'she-her',
   pet: 'Owl',
   wandType: 'birch',
