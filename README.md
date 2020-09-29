@@ -2,9 +2,9 @@ Create a Hogwarts Student
 
 Link to live app: https://hogwarts-client.mbcodes29.vercel.app/
 
-API Documentation:
 
-This app allows a user to make selections to create a Hogwarts student, including selecting preferred pronouns, a pet, a wand type, a wand core, and a favorite magical Hogwarts school subject. 
+
+This app allows a user to make selections to create a Hogwarts student, including selecting preferred pronouns, a pet, a wand type, a wand core, a favorite magical Hogwarts school subject, and the ability to randomly sort a student into a Hogwarts House. 
 
 Landing Page screenshot:
 </br>
@@ -21,6 +21,40 @@ After creating a student, the student will populate on the My Students Page, alo
 
 My Students Page screenshot:
 <a href="https://imgur.com/WGugjBT"><img src="https://i.imgur.com/WGugjBT.png" title="source: imgur.com" /></a>
+
+
+API Documentation
+
+
+GET api/students/users/:user_id
+
+This endpoint allows a registered and logged in user to create a new Hogwarts student by clicking on the 'Create' tab or view/delete created students on the 'My Students' page.
+
+
+POST api/students/:student_id
+
+This endpoint allows a registered and logged in user to submit input into a form of various Hogwarts student characteristics, and the results will post to the My Students page.
+
+Example response body:
+
+{
+  pronouns: 'she-her',
+  pet: 'Owl',
+  wandType: 'birch',
+  wandCore: 'unicorn',
+  favoriteSubject: 'divination',
+  house: 'Gryffindor',
+  user_id: 4
+}
+
+DELETE api/students/:student_id
+
+This endpoint allows a registered and logged in user to delete a specific student that they've created from the My Students page.
+
+
+Notes on futher application progression
+
+Future updates to this application will be student spell points, talents and duel stats and the ability to sort students by Hogwarts House.
 
 
 Technology Used:
