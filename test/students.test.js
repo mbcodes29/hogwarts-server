@@ -50,7 +50,7 @@ describe('Student endpoints', () => {
   
     after('destroy db connection', () => db.destroy());
   
-    describe('getAllStudents()', () => {
+    describe('POST /users/:user_id', () => {
       it('returns an empty array', () => {
         return StudentService
           .getAllStudents(db)
