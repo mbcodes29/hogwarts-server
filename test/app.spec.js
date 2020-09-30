@@ -15,25 +15,31 @@ describe('Students service object', () => {
       id: 1,
       pronouns: 'She/Her',
       pet: 'Owl',
-      wandType: 'Ash',
-      wandCore: 'Dragon',
-      favoriteSubject: 'Flying'
+      wandtype: 'Ash',
+      wandcore: 'Dragon',
+      favoritesubject: 'Flying',
+      house: 'Gryffindor',
+      user_id: 1,
     },
     {
       id: 2,
       pronouns: 'He/Him',
       pet: 'Cat',
-      wandType: 'Birch',
-      wandCore: 'Unicorn',
-      favoriteSubject: 'Herbology'
+      wandtype: 'Birch',
+      wandcore: 'Unicorn',
+      favoritesubject: 'Herbology',
+      house: 'Slytherin',
+      user_id: 2
     },
     {
       id: 3,
       pronouns: 'They/Them',
       pet: 'Toad',
-      wandType: 'Alder',
-      wandCore: 'Phoenix',
-      favoriteSubject: 'Astronomy'
+      wandtype: 'Alder',
+      wandcore: 'Phoenix',
+      favoritesubject: 'Astronomy',
+      house: 'Ravenclaw',
+      user_id: 3
     },
   ];
 
@@ -41,7 +47,7 @@ describe('Students service object', () => {
   before('setup db', () => {
     db = knex({
       client: 'pg',
-      connection: process.env.TEST_DATABASE_URL || 'postgresql://hogwarts\@localhost/headmaster-test'
+      connection: process.env.TEST_DATABASE_URL || 'postgresql://hogwarts@localhost/headmaster-test'
     });
   });
 
@@ -78,9 +84,11 @@ describe('Students service object', () => {
         id: 3,
         pronouns: 'She/Her',
         pet: 'Owl',
-        wandType: 'Ash',
-        wandCore: 'Dragon',
-        favoriteSubject: 'Flying'
+        wandtype: 'Ash',
+        wandcore: 'Dragon',
+        favoritesubject: 'Flying',
+        house: 'Gryffindor',
+        user_id: 3
       };
 
       return StudentService.insertStudent(db, newStudent)
@@ -89,9 +97,11 @@ describe('Students service object', () => {
             id: 4,
             pronouns: 'She/Her',
             pet: 'Owl',
-            wandType: 'Ash',
-            wandCore: 'Dragon',
-            favoriteSubject: 'Flying'
+            wandtype: 'Ash',
+            wandcore: 'Dragon',
+            favoritesubject: 'Flying',
+            house: 'Gryffindor',
+            user_id: 4
           });
         });
     });
@@ -101,9 +111,11 @@ describe('Students service object', () => {
       const newStudent = {
         id: 1,
         pronouns: 'She/Her',
-        wandType: 'Alder',
-        wandCore: 'Phoenix',
-        favoriteSubject: 'Astronomy',
+        wandtype: 'Alder',
+        wandcore: 'Phoenix',
+        favoritesubject: 'Astronomy',
+        house: 'Gryffindor',
+        user_id: 1
       };
 
 
@@ -148,7 +160,7 @@ describe('Students service object', () => {
     context('with data present', () => {
       before('insert students', () => 
         db('students')
-          .insert(testStudent)
+          .insert(testStudents)
       );
 
       it('should return 1 row affected and record is removed from db', () => {
