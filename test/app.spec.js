@@ -2,6 +2,7 @@ const app = require('../src/app')
 const { expect } = require('chai');
 const supertest = require('supertest');
 const knex = require('knex');
+const UserRouter = require('../src/users/users-router');
 const StudentService = require('../src/students/student-service');
 
 
