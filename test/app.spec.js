@@ -4,59 +4,29 @@ const supertest = require('supertest');
 const knex = require('knex');
 const UserRouter = require('../src/users/users-router');
 const StudentService = require('../src/students/student-service');
-
-
+const helpers = require('./test-helpers')
 
 describe('Students service object', () => {
   let db;
 
-  const testStudents = [
-    {
-      id: 1,
-      pronouns: 'She/Her',
-      pet: 'Owl',
-      wandtype: 'Ash',
-      wandcore: 'Dragon',
-      favoritesubject: 'Flying',
-      house: 'Gryffindor',
-      user_id: 1
-    },
-    {
-      id: 2,
-      pronouns: 'He/Him',
-      pet: 'Cat',
-      wandtype: 'Birch',
-      wandcore: 'Unicorn',
-      favoritesubject: 'Herbology',
-      house: 'Slytherin',
-      user_id: 1
-    },
-    {
-      id: 3,
-      pronouns: 'They/Them',
-      pet: 'Toad',
-      wandtype: 'Alder',
-      wandcore: 'Phoenix',
-      favoritesubject: 'Astronomy',
-      house: 'Ravenclaw',
-      user_id: 1
-    },
-  ];
+  const {
+    testUsers,
+    testStudents,
+  } = helpers.makeArticlesFixtures();
 
-  
   before('setup db', () => {
     db = knex({
       client: 'pg',
-      connection: process.env.TEST_DATABASE_URL || 'postgresql://hogwarts@localhost/headmaster-test2'
+      connection: process.env.TEST_DATABASE_URL || 'postgresql://hogwarts@localhost/headmaster-test4'
     });
+    app.set('db', db);
   });
 
-  before('clean db', () => db('students').truncate());
+  after('disconnect from db', () => db.destroy());
 
-  afterEach('clean db', () => db('students').truncate());
+  before('cleanup', () => helpers.cleanTables(db));
 
-
-  after('destroy db connection', () => db.destroy());
+  afterEach('cleanup', () => helpers.cleanTables(db));
 
   describe('getAllStudents()', () => {
     it('returns an empty array', () => {
@@ -65,11 +35,18 @@ describe('Students service object', () => {
         .then(students => expect(students).to.eql([]));
     });
     context('with data present', () => {
-      beforeEach('insert test students', () =>
-        db('students')
-          .insert(testStudents)
-      );
-
+      beforeEach('insert users', () =>
+        helpers.seedUsers(
+          db,
+          testUsers,
+        )
+      )
+      beforeEach('insert students', () =>
+        helpers.seedStudents(
+          db,
+          testStudents,
+        )
+      )
       it('returns all test students', () => {
         return StudentService
           .getAllStudents(db)
@@ -79,29 +56,35 @@ describe('Students service object', () => {
   });
 
   describe('insertStudent()' , () => {
+    beforeEach('insert users', () =>
+      helpers.seedUsers(
+        db,
+        testUsers,
+      )
+    )
     it('inserts record in db and returns student with new id', () => {
       const newStudent = {
-        id: 3,
+        id: 5,
         pronouns: 'She/Her',
         pet: 'Owl',
         wandtype: 'Ash',
         wandcore: 'Dragon',
         favoritesubject: 'Flying',
         house: 'Gryffindor',
-        user_id: 3
+        user_id: 1
       };
 
       return StudentService.insertStudent(db, newStudent)
         .then(actual => {
           expect(actual).to.eql({
-            id: 4,
+            id: 5,
             pronouns: 'She/Her',
             pet: 'Owl',
             wandtype: 'Ash',
             wandcore: 'Dragon',
             favoritesubject: 'Flying',
             house: 'Gryffindor',
-            user_id: 4
+            user_id: 1
           });
         });
     });
@@ -136,12 +119,20 @@ describe('Students service object', () => {
     });
 
     context('with data present', () => {
-      before('insert students', () => 
-        db('students')
-          .insert(testStudents)
-      );
+      before('insert users', () =>
+        helpers.seedUsers(
+          db,
+          testUsers,
+        )
+      )
+      before('insert students', () =>
+        helpers.seedStudents(
+          db,
+          testStudents,
+        )
+      )
 
-      it('should return existing article', () => {
+      it('should return existing student', () => {
         const expectedStudentId = 3;
         const expectedStudent = testStudents.find(a => a.id === expectedStudentId);
         return StudentService.getById(db, expectedStudentId)
@@ -158,16 +149,24 @@ describe('Students service object', () => {
     });
 
     context('with data present', () => {
-      before('insert students', () => 
-        db('students')
-          .insert(testStudents)
-      );
+      before('insert users', () =>
+        helpers.seedUsers(
+          db,
+          testUsers,
+        )
+      )
+      before('insert students', () =>
+        helpers.seedStudents(
+          db,
+          testStudents,
+        )
+      )
 
       it('should return 1 row affected and record is removed from db', () => {
         const deletedStudentId = 1;
 
         return StudentService
-          .deleteArticle(db, deletedStudentId)
+          .deleteStudent(db, deletedStudentId)
           .then(rowsAffected => {
             expect(rowsAffected).to.eq(1);
             return db('students').select('*');
