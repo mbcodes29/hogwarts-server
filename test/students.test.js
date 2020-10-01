@@ -43,13 +43,37 @@ describe.only('Student endpoints', () => {
         )
         it('should return an array of students', () => {
             return supertest(app)
-            .post('/api/students')
+            .get('/api/students')
             .send({})
             .expect(200)
-            // .expect('Content-Type', /json/)
-            // .then(res => {
-            //     expect(res.body).to.be.an('array');
-            // })
+            .expect('Content-Type', /json/)
+            .then(res => {
+                expect(res.body).to.be.an('array');
+            })
+        })
+    })
+    describe('DELETE/api/students/:student_id/20', () => {
+        beforeEach('insert users', () =>
+            helpers.seedUsers(
+                db,
+                testUsers,
+            )
+        )
+        beforeEach('insert students', () =>
+            helpers.seedStudents(
+                db,
+                testStudents,
+            )
+        )
+        it('remove an existing student', () => {
+            return supertest(app)
+            .delete('/api/students/:student_id/20')
+            .send({})
+            .then(res => {
+                expect(404, {
+                    error: {message: `student does not exist.`}
+                });
+            })
         })
     })
 })

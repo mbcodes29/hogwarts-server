@@ -2,9 +2,15 @@
 
 ## Link to live app: https://hogwarts-client.mbcodes29.vercel.app/
 
+## Demo information:
+Username: demoAcct
+Password: demoAcctPass1!
 
+## Notes on futher application progression
 
-This app allows a user to make selections to create a Hogwarts student, including selecting preferred pronouns, a pet, a wand type, a wand core, a favorite magical Hogwarts school subject, and the ability to randomly sort a student into a Hogwarts House. 
+Future updates to this application will be student spell points, house points,  dueling and duel stats and the ability to sort students by Hogwarts House.
+
+This app currently allows a user to make selections to create a Hogwarts student, including selecting preferred pronouns, a pet, a wand type, a wand core, a favorite magical Hogwarts school subject, and the ability to randomly sort a student into a Hogwarts House. 
 
 ## Landing Page screenshot:
 </br>
@@ -51,11 +57,6 @@ Example response body:
 ## DELETE api/students/:student_id
 
 This endpoint allows a registered and logged in user to delete a specific student that they've created from the My Students page.
-
-
-## Notes on futher application progression
-
-Future updates to this application will be student spell points, talents and duel stats and the ability to sort students by Hogwarts House.
 
 
 ## Technology Used:
