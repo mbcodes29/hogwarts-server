@@ -12,7 +12,7 @@ describe('Students service object', () => {
   const {
     testUsers,
     testStudents,
-  } = helpers.makeArticlesFixtures();
+  } = helpers.makeHogwartsData();
 
   before('setup db', () => {
     db = knex({

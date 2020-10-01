@@ -61,7 +61,7 @@ function makeStudentsArray() {
   ];
 }
 
-function makeArticlesFixtures() {
+function makeHogwartsData() {
   const testUsers = makeUsersArray()
   const testStudents = makeStudentsArray()
   return { testUsers, testStudents }
@@ -117,7 +117,6 @@ function seedUsers(db, users) {
   }))
   return db.into('users').insert(preppedUsers)
     .then(() =>
-      // update the auto sequence to stay in sync
       db.raw(
         `SELECT setval('users_id_seq', ?)`,
         [users[users.length - 1].id],
@@ -131,7 +130,6 @@ function seedStudents(db, students) {
   }))
   return db.into('students').insert(preppedStudents)
     .then(() =>
-      // update the auto sequence to stay in sync
       db.raw(
         `SELECT setval('students_id_seq', ?)`,
         [students[students.length - 1].id],
@@ -142,18 +140,10 @@ function seedStudents(db, students) {
 module.exports = {
   makeUsersArray,
   makeStudentsArray,
-  // makeArticlesArray,
-  // makeExpectedArticle,
-  // makeExpectedArticleComments,
-  // makeMaliciousArticle,
-  // makeCommentsArray,
-
-  makeArticlesFixtures,
+  makeHogwartsData,
   cleanTables,
   cleanStudentTables,
-  // seedArticlesTables,
-  // seedMaliciousArticle,
   makeAuthHeader,
   seedUsers,
-  seedStudents,
+  seedStudents
 }
