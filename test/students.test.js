@@ -28,7 +28,8 @@ describe.only('Student endpoints', () => {
   
     after('destroy db connection', () => db.destroy());
 
-    describe('POST/api/students/:student_id', () => {
+
+    describe('GET/api/students/:student_id', () => {
         beforeEach('insert users', () =>
             helpers.seedUsers(
                 db,
@@ -52,7 +53,31 @@ describe.only('Student endpoints', () => {
             })
         })
     })
-    describe('DELETE/api/students/:student_id/20', () => {
+    describe('POST/api/students/:student_id', () => {
+        beforeEach('insert users', () =>
+            helpers.seedUsers(
+                db,
+                testUsers,
+            )
+        )
+        beforeEach('insert students', () =>
+            helpers.seedStudents(
+                db,
+                testStudents,
+            )
+        )
+        it('should return an array of students with a new student added', () => {
+            return supertest(app)
+            .get('/api/students')
+            .send({})
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .then(res => {
+                expect(res.body).to.be.an('array');
+            })
+        })
+    })
+    describe('DELETE/api/students/1', () => {
         beforeEach('insert users', () =>
             helpers.seedUsers(
                 db,
@@ -67,7 +92,7 @@ describe.only('Student endpoints', () => {
         )
         it('remove an existing student', () => {
             return supertest(app)
-            .delete('/api/students/:student_id/20')
+            .delete('/api/students/1')
             .send({})
             .then(res => {
                 expect(404, {
