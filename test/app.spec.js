@@ -19,7 +19,7 @@ describe('Students service object', () => {
       wandcore: 'Dragon',
       favoritesubject: 'Flying',
       house: 'Gryffindor',
-      user_id: 1,
+      user_id: 1
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ describe('Students service object', () => {
       wandcore: 'Unicorn',
       favoritesubject: 'Herbology',
       house: 'Slytherin',
-      user_id: 2
+      user_id: 1
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ describe('Students service object', () => {
       wandcore: 'Phoenix',
       favoritesubject: 'Astronomy',
       house: 'Ravenclaw',
-      user_id: 3
+      user_id: 1
     },
   ];
 
@@ -47,7 +47,7 @@ describe('Students service object', () => {
   before('setup db', () => {
     db = knex({
       client: 'pg',
-      connection: process.env.TEST_DATABASE_URL || 'postgresql://hogwarts@localhost/headmaster-test'
+      connection: process.env.TEST_DATABASE_URL || 'postgresql://hogwarts@localhost/headmaster-test2'
     });
   });
 
