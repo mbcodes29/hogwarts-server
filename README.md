@@ -4,6 +4,7 @@
 
 ## Demo information:
 Username: demoAcct
+</br>
 Password: demoAcctPass1!
 
 ## Notes on futher application progression
