@@ -6,7 +6,7 @@ const StudentRouter = require('../src/students/student-router');
 const helpers = require('./test-helpers')
 
 
-describe.only('Student endpoints', () => {
+describe('Student endpoints', () => {
     let db;
   
     const {
